@@ -30,6 +30,8 @@
 			container: '.stickem-container',
 			stickClass: 'stickit',
 			endStickClass: 'stickit-end',
+			containerStickClass: 'has-stickit',
+			containerEndStickClass: 'had-stickit',
 			offset: 0,
 			start: 0,
 			onStick: null,
@@ -127,10 +129,13 @@
 					//If it's stuck, and we need to unstick it
 					if(item.isStuck && (pos < item.containerStart || pos > item.scrollFinish)) {
 						item.$elem.removeClass(_self.config.stickClass);
+						item.$container.removeClass(_self.config.containerStickClass);
+						
 
 						//only at the bottom
 						if(pos > item.scrollFinish) {
 							item.$elem.addClass(_self.config.endStickClass);
+							item.$container.addClass(_self.config.containerEndStickClass);
 						}
 
 						item.isStuck = false;
@@ -143,6 +148,7 @@
 					//If we need to stick it
 					} else if(item.isStuck === false && pos > item.containerStart && pos < item.scrollFinish) {
 							item.$elem.removeClass(_self.config.endStickClass).addClass(_self.config.stickClass);
+							item.$container.removeClass(_self.config.containerEndStickClass).addClass(_self.config.containerStickClass);
 							item.isStuck = true;
 
 							//if supplied fire the onStick callback
